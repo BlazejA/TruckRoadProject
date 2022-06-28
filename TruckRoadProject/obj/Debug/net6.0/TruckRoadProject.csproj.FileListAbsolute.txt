@@ -1,0 +1,12 @@
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\bin\Debug\net6.0\TruckRoadProject.deps.json
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\bin\Debug\net6.0\TruckRoadProject.dll
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\bin\Debug\net6.0\TruckRoadProject.pdb
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.csproj.AssemblyReference.cache
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.AssemblyInfoInputs.cache
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.AssemblyInfo.cs
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.csproj.CoreCompileInputs.cache
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.dll
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\refint\TruckRoadProject.dll
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\TruckRoadProject.pdb
+C:\Users\ablaz\source\repos\TruckRoadProject\TruckRoadProject\obj\Debug\net6.0\ref\TruckRoadProject.dll
