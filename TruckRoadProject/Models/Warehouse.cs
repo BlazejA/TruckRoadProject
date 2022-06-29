@@ -2,7 +2,14 @@
 {
     public class Warehouse
     {
-        string Id { get; set; }
-        MapPoint Localization { get; set; }
+        public string Id { get; set; }
+        /// <summary>
+        /// Random 100-200 kg
+        /// </summary>
+        public int LoadAmount { get; set; }
+        /// <summary>
+        /// True if deliver enough load amount
+        /// </summary>
+        public bool IsFull { get; set; }
     }
 }
