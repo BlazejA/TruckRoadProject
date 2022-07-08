@@ -4,10 +4,17 @@ namespace TruckRoadProject.Models
 {
     public class Road
     {
-        public Map SingleRoad { get; set; } //TODO: zmienić na mappoint i lodować ładunek
-        public string Load { get; set; }
-        public IEnumerable<ITruck> Trucks { get; set; }
-        public int Time { get; set; }
+        public Map Map { get; set; }
+        public List<int> RoadPoint { get; set; }
+        public Queue<ITruck> Trucks { get; set; }
+        public int Time { get; set; } = 0;
+
+        public Road(Map map, List<int> point, Queue<ITruck> trucks)
+        {
+            Map = map;
+            RoadPoint = point;
+            Trucks = trucks;
+        }
 
     }
 }

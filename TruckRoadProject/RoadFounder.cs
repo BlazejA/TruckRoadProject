@@ -10,24 +10,25 @@
         private static int _min = int.MaxValue;
         private static int _indeksSciezki;
         private static int _tmpMin, _tmpIndeksSciezki;
+        
+        private static int[,] _utworzonaMacierz; 
+        private static int[,] _tabPopulacji; 
+        private static int[,] _tabOdleglosci; 
+        private static int[] _tabOcen;
 
-        // TABLICE
-        private static int[,] _utworzonaMacierz; // utworzona macierz na podstawie pliku berlin52.txt lub innego pliku
-        private static int[,] _tabPopulacji; // tablica zawierająca drogę wylosowanych osobników do populacji, o rozmiarze [wielkoscPopulacji, liczbaWierzcholkow]
-        private static int[,] _tabOdleglosci; // tablica odleglosci miedzy sciezkami wierzchołków w tabPopulacji
-        private static int[] _tabOcen; // tablica zsumowanych dróg wylosowanych osobników populacji
+        public List<int> Droga;
+        
 
-        static void Main(string[] args)
+        public void Main()
         {
-            TworzenieMacierzy(@"C:\Users\ablaz\source\repos\macierzOdleglosci\files\berlin52.txt");
+            TworzenieMacierzy(Environment.CurrentDirectory + @"\trasa.txt");
             TworzenieTabPopulacji();
 
             for (var i = 0; i < _liczbaIteracji; i++)
             {
                 TworzenieTabOdleglosci(_tabPopulacji);
                 TworzenieTabOcen(_tabOdleglosci);
-
-                //ZNAJDOWANIE MINIMUM W BIEŻĄCEJ ITERACJI
+                
                 _tmpIndeksSciezki = 0;
                 _tmpMin = _tabOcen[0];
 
@@ -39,23 +40,24 @@
                         _tmpIndeksSciezki = j;
                     }
                 }
-                if (_tmpMin < _min) // porównywanie bieżącego minimum z minimum ogólnym i w przypadku minInteracji < min nadpisanie go
+                if (_tmpMin < _min)
                 {
                     _min = _tmpMin;
-                    Console.WriteLine("Minimum: {0} ---- Iteracja: {1}", _min, i);
                     _indeksSciezki = _tmpIndeksSciezki;
-
+                     Droga = new List<int>();
                     for (var j = 0; j < _tabPopulacji.GetLength(1); j++)
+                    {
+                       
                         Console.Write(_tabPopulacji[_indeksSciezki, j] + "-");
+                        Droga.Add(_tabPopulacji[_indeksSciezki, j]);
+                    }
 
                     Console.WriteLine(_min);
                 }
-
-                // SELEKCJA
+                
                 for (var j = 0; j < _tabPopulacji.GetLength(0); j++)
                 {
                     var x = SelekcjaTurniejowa(_tabOcen);
-                    //x = SelekcjaKoloRuletki(tabOcen, tabPopulacji); // wariant z selekcją metodą koła ruletki
                     for (var k = 0; k < _tabPopulacji.GetLength(1); k++)
                         _tabPopulacji[j, k] = _tabPopulacji[x, k];
 
@@ -68,8 +70,6 @@
                 MutacjaPrzezInwersje(_tabPopulacji);
 
             }
-
-            Console.ReadKey();
         }
 
         public static void TworzenieMacierzy(string sciezkaPliku)
@@ -81,10 +81,7 @@
 
             try
             {
-                var generator = new MapGenerator();
-                var list = generator.MapPointsGenerator();
-                //var tekst = File.ReadLines(sciezkaPliku);
-                var tekst = MatrixGenerator.CreateMatrix(list);
+                var tekst = File.ReadLines(sciezkaPliku);
                 foreach (var linia in tekst)
                 {
                     if (czyPierwszaLinia)
@@ -235,7 +232,7 @@
 
             for (var i = 0; i < tab.GetLength(0); i += 2)
             {
-                var p1 = random.Next(1, tab.GetLength(1) - 2); // p1 i p2 - punkty przecięcia osobników
+                var p1 = random.Next(1, tab.GetLength(1) - 2);
                 var p2 = random.Next(p1 + 1, tab.GetLength(1) - 1);
 
                 for (var j = p1; j <= p2; j++)
@@ -318,25 +315,7 @@
                 pot[j] = gen;
             }
         }
-
-        public static void WyswietlanieTab(int[] tab) // źle 
-        {
-            for (var i = 0; i < tab.Length; i++)
-                Console.WriteLine(i + 1 + ". " + tab[i]);
-
-            Console.WriteLine();
-        }
-
-        public static void WyswietlanieTab2(int[,] tab)  // źle
-        {
-            for (var i = 0; i < tab.GetLength(0); i++)
-            {
-                for (var j = 0; j < tab.GetLength(1); j++)
-                    Console.Write(tab[i, j] + " ");
-
-                Console.WriteLine();
-            }
-        }
+        
     }
 }
 

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using TruckRoadProject.Models;
+using TruckRoadProject.Models.TrucksModels;
 
 namespace TruckRoadProject.UI
 {
@@ -13,31 +16,42 @@ namespace TruckRoadProject.UI
         public MainWindow()
         {
             InitializeComponent();
-            MapGenerator map = new MapGenerator();
 
-            var list = map.MapPointsGenerator();
-            foreach (var item in list.Points)
+            var generator = new MapGenerator();
+            var map = generator.MapPointsGenerator();
+
+            var matrix = MatrixGenerator.CreateMatrix(map);
+
+            MatrixGenerator.GenerateFile();
+            var tps = new RoadFounder();
+            tps.Main();
+            var truckList = new Queue<ITruck>();
+            Random random = new Random();
+            for (var i = 0; i < random.Next(3, 7); i++)
             {
-                map.CountShortestWays(list.Points, item);
+                truckList.Enqueue(new BaseTruck());
             }
 
-            for (int i = 1; i < map.ShortestRoads.Count; i++)
+            var road = new Road(map, tps.Droga, truckList);
+
+            TruckRide.Ride(road);
+            map.Points.Add(map.Points[0]);
+            tps.Droga.Add(tps.Droga[0]);
+            for (var i = 1; i < tps.Droga.Count; i++)
             {
-                Line line = new Line();
+                var line = new Line();
                 line.Visibility = Visibility.Visible;
                 line.StrokeThickness = 1;
                 line.Stroke = Brushes.Black;
-                line.X1 = map.ShortestRoads[i - 1].X*2;
-                line.Y1 = map.ShortestRoads[i - 1].Y * 2;
-                line.X2 = map.ShortestRoads[i].X * 2;
-                line.Y2 = map.ShortestRoads[i].Y * 2;
+                line.X1 = map.Points[tps.Droga[i - 1]].X * 2;
+                line.Y1 = map.Points[tps.Droga[i - 1]].Y * 2;
+                line.X2 = map.Points[tps.Droga[i]].X * 2;
+                line.Y2 = map.Points[tps.Droga[i]].Y * 2;
                 Canvas.Children.Add(line);
-                
+
             }
-            foreach (var generatorShortestRoad in map.ShortestRoads)
-            {
-                text.Text += "X: " + generatorShortestRoad.X + " Y: " + generatorShortestRoad.Y + "\n";
-            }
+
+            text.Text += road.Time + "\n";
         }
     }
 }

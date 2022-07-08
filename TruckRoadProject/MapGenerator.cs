@@ -14,12 +14,13 @@ namespace TruckRoadProject
         {
             var map = new Map();
             var end = random.Next(400, 601);
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < end; i++)
             {
                 var point = new MapPoint
                 {
                     X = random.Next(101),
-                    Y = random.Next(101)
+                    Y = random.Next(101),
+                    Warehouse = new Warehouse { LoadAmount = random.Next(100, 201) }
                 };
                 map.Points.Add(point);
             }
@@ -61,13 +62,13 @@ namespace TruckRoadProject
             return resultList;
         }
 
-        public static double CountDistanceOfTwoPoints(MapPoint first, MapPoint second)
+        public static int CountDistanceOfTwoPoints(MapPoint first, MapPoint second)
         {
             var countX = Math.Pow(second.X - first.X, 2);
             var countY = Math.Pow(second.Y - first.Y, 2);
             var result = Math.Sqrt(countX + countY);
 
-            return result;
+            return (int)result;
         }
 
         public MapPoint FoundShortestWay(List<KeyValuePair<double, MapPoint>> ways)
